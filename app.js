@@ -302,3 +302,55 @@ const updateRole = () => {
         });
     });
 };
+
+const updateManger = () => {
+    sql = `SELECT employee.first_name, employee.last_name
+    FROM employee`;
+    db.query(sql, (err, res) => {
+        if (err) throw err;
+        inquirer
+        .prompt([
+        {
+            name: "employeeChoice",
+            type: "list",
+            message: "Which employee do you want to change?",
+            choices: () => {
+              let choiceArray = [];
+              for (let i = 0; i < res.length; i++) {
+                choiceArray.push(`${res[i].first_name} ${res[i].last_name}`);
+            }
+              return choiceArray;
+            },
+        },
+        {
+            type: "Input",
+            name: "manager_id",
+            message: "What manger would you like to assign to employee?"
+  
+        }
+        ]).then((answer) => {
+                let employeeId;
+                const sql = `SELECT employee.first_name, employee.last_name, employee.id
+              FROM employee`;
+                db.query(sql, (err, res) => {
+                  if (err) throw err;
+                  for (let i = 0; i < res.length; i++) {
+                    if ( `${res[i].first_name} ${res[i].last_name}` === answer.employeeChoice
+                )   {
+                      employeeId = res[i].id;
+                      manager_id = answer.manager_id
+                    }
+                    }
+                    const sql = `UPDATE employee SET ? WHERE ?`;
+                    const params = [{ manager_id: answer.manager_id }, { id: employeeId }];
+                    db.query(sql, params, (err) => {
+                      if (err) throw err;
+                      console.log("Employee's manager has been changed.");
+                      mainPrompt();
+                    });
+                });
+            });
+        });
+};
+  
+mainPrompt();
