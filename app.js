@@ -87,3 +87,23 @@ const viewAllEmployees = (req, res) => {
       mainPrompt();
     });
 };
+
+const addDepartment = () => {
+    inquirer
+        .prompt([
+            { name: "name", type: "input", message: "What is the department name?" },
+        ])
+        .then((answer) => {
+            db.query(
+                `INSERT INTO department SET ?`,
+            {
+            name: answer.name,
+            },
+            (err) => {
+                if (err) throw err;
+                console.log(`New Department created called ${answer.name}`);
+            mainPrompt();
+          }
+        );
+    });
+};
