@@ -1,7 +1,6 @@
 {
   "name": "employeetracker",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "npm start"
@@ -20,5 +19,7 @@
     "console.table": "^0.10.0",
     "inquirer": "^8.2.0",
     "mysql2": "^2.3.3-rc.0"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
