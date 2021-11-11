@@ -3,7 +3,7 @@ const db = require("./db/connection");
 
 const prompt = [
   {
-    type: "List",
+    type: "list",
     name: "Selections",
     message: "What would you like to do?",
     choices: [
@@ -87,7 +87,7 @@ const start = () => {
         inquirer
           .prompt([
             {
-              name: "Name",
+              name: "name",
               type: "Input",
               message: "What is the name of the new Department?",
             },

@@ -3,8 +3,8 @@ const db = require("./db/connection");
 
 const options = [
   {
-    type: "List",
-    name: "Selection",
+    type: "list",
+    name: "selection",
     message: "What would you like to do?",
     choices: [
       "View All Departments",
@@ -116,18 +116,18 @@ const addRole = () => {
       inquirer
         .prompt([
             {
-                name: "Title",
-                type: "Input",
+                name: "title",
+                type: "input",
                 message: "What is the name of the role?",
             },
             {
-                name: "Salary",
-                type: "Input",
+                name: "salary",
+                type: "input",
                 message: "What is the salary for this role?",
             },
             {
-                name: "Choice",
-                type: "List",
+                name: "choice",
+                type: "list",
                 message: "What is the department for this role?",
                 choices: () => {
                     let choiceArray = [];
@@ -173,18 +173,18 @@ const addEmployee = () => {
       inquirer
         .prompt([
         {
-            name: "First_name",
-            type: "Input",
+            name: "first_name",
+            type: "input",
             message: "What is the employee's first name?",
         },
         {
-            name: "Last_name",
-            type: "Input",
+            name: "last_name",
+            type: "input",
             message: "What is the employee's last name?",
         },
         {
-            name: "Choice",
-            type: "List",
+            name: "choice",
+            type: "list",
             message: "What is the role of this employee?",
             choices: () => {
               let choiceArray = [];
@@ -233,7 +233,7 @@ const updateRole = () => {
         .prompt([
         {
             name: "employeeChoice",
-            type: "List",
+            type: "list",
             choices: () => {
               let choiceArray = [];
               for (let i = 0; i < res.length; i++) {
@@ -253,7 +253,7 @@ const updateRole = () => {
               .prompt([
                 {
                   name: "roleChoice",
-                  type: "List",
+                  type: "list",
                   choices: function () {
                     let roleChoiceArray = [];
                     for (let i = 0; i < res.length; i++) {
@@ -323,7 +323,7 @@ const updateManger = () => {
             },
         },
         {
-            type: "Input",
+            type: "input",
             name: "manager_id",
             message: "What manger would you like to assign to employee?"
   
