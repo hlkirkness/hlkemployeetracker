@@ -1,4 +1,4 @@
-USE employee_tracker;
+USE employee_trackerdb;
 
 INSERT INTO department (name) 
 VALUES ("IT"),
