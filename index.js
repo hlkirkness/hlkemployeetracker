@@ -18,3 +18,36 @@ const prompt = [
     ],
   },
 ];
+
+const start = () => {
+    inquirer.prompt(prompt).then((answer) => {
+      switch (answer.selections) {
+        case "View All Employees":
+          viewAllEmployees();
+          break;
+        case "View All Departments":
+          viewAllDepartments();
+          break;
+        case "View All Roles":
+          viewAllRoles();
+          break;
+        case "Add Employee":
+          addEmployee();
+          break;
+        case "Add Role":
+          addRole();
+          break;
+        case "Add Department":
+          addDepartment();
+          break;
+        case "Update Role":
+          updateRole();
+          break;
+        case "Exit":
+          db.end();
+          break;
+      }
+    });
+  };
+
+  start();
