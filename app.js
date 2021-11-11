@@ -107,3 +107,117 @@ const addDepartment = () => {
         );
     });
 };
+
+const addRole = () => {
+    const sql = `SELECT department.name, department.id
+    FROM department`;
+    db.query(sql, (err, res) => {
+      if (err) throw err;
+      inquirer
+        .prompt([
+            {
+                name: "Title",
+                type: "Input",
+                message: "What is the name of the role?",
+            },
+            {
+                name: "Salary",
+                type: "Input",
+                message: "What is the salary for this role?",
+            },
+            {
+                name: "Choice",
+                type: "List",
+                message: "What is the department for this role?",
+                choices: () => {
+                    let choiceArray = [];
+                    for (let i = 0; i < res.length; i++) {
+                    choiceArray.push(res[i].name);
+                }
+            return choiceArray;
+            },
+          },
+        ])
+        .then((answer) => {
+  
+          let dpt = answer.choice;
+          let department_id;
+          for (let i = 0; i < res.length; i++) {
+            if (res[i].name === answer.choice) {
+              department_id = res[i].id;
+            }
+        }
+          db.query(
+            `INSERT INTO role SET ?`,
+            {
+              title: answer.title,
+              salary: answer.salary,
+              department_id: department_id,
+            },
+            (err) => {
+              if (err) throw err;
+              console.log(
+                `You have created ${answer.title} with salary of ${answer.salary} in ${dpt}.`
+                );
+            mainPrompt();
+            }
+          );
+        });
+    });
+};
+
+const addEmployee = () => {
+    const sql = `SELECT role.title, role.id FROM role`;
+    db.query(sql, (err, res) => {
+      if (err) throw err;
+      inquirer
+        .prompt([
+        {
+            name: "First_name",
+            type: "Input",
+            message: "What is the employee's first name?",
+        },
+        {
+            name: "Last_name",
+            type: "Input",
+            message: "What is the employee's last name?",
+        },
+        {
+            name: "Choice",
+            type: "List",
+            message: "What is the role of this employee?",
+            choices: () => {
+              let choiceArray = [];
+              for (let i = 0; i < res.length; i++) {
+                choiceArray.push(`${res[i].title}`);
+              }
+              return choiceArray;
+            },
+          },
+        ])
+        .then((answer) => {
+          let disp = answer.choice;
+          let role_id;
+          for (let i = 0; i < res.length; i++) {
+            if (res[i].title === answer.choice) {
+              role_id = res[i].id;
+            }
+        }
+        db.query(
+            `INSERT INTO employee SET ?`,
+            {
+              first_name: answer.first_name,
+              last_name: answer.last_name,
+              role_id: role_id,
+            },
+            (err) => {
+              if (err) throw err;
+              console.log(
+                `You have created an employee ${answer.first_name} ${answer.last_name} with a role of ${disp}.`
+              );
+              mainPrompt();
+            }
+          );
+        });
+    });
+};
